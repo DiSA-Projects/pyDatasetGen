@@ -1,5 +1,5 @@
 # pyDatasetGen
-A library for producing customizable randomly generated datasets to be used in testing and development.
+A Python library for producing customizable randomly generated datasets to be used in testing and development.
 
 _Original code by Neil Aitken, UBC Digital Scholarship in the Arts_
 
