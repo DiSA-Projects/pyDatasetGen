@@ -4,7 +4,7 @@ A library for producing customizable randomly generated datasets to be used in t
 _Original code by Neil Aitken, UBC Digital Scholarship in the Arts_
 
 ## Development
-pyDatasetGen was originally created by Neil Aitken to provide a simple way to generate customized datasets to test data mining and data visualization code. Sometimes we need 
+pyDatasetGen provides a simple way to generate customized datasets to test data mining and data visualization code. Sometimes we need 
 to test our code, but want to avoid unnecessary interaction with a dataset that might contain private, proprietary, sensitive, or restricted information. Provided we know the 
 general format of the dataset (categories of data and column names), we create small or large test datasets that mimic the real dataset, without endangering the original dataset,
 making unauthorized copies, or having to file repeated requests for access.
