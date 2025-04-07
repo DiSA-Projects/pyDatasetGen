@@ -781,13 +781,16 @@ class DatasetGenerator:
             elif re.search("[+]",value):
                 result[key]=''
                 values = value.split('+')
-                for val in values:                    
+                for val in values:                                    
                     if val.startswith('?'):
                         newval = self.parse(val)                        
                         if type(newval) == int:
                             result[key]=result[key]+str(newval)
                         else:
                             result[key]=result[key]+newval
+                    elif val.startswith('[') and val.endswith(']'):
+                        newval = val[1:-1].split(',')
+                        result[key]=result[key]+choose(newval)
                     else:
                         result[key]=result[key]+val
             elif value.startswith("?"):
