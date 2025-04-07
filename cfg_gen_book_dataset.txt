@@ -1,0 +1,13 @@
+title=?booktitle
+author=?fullname
+ISXN=?isxn
+publisher=[Doubleday Books,Heyday Books,MIT Press,UCLA Press,UBC Press,Brick Books,Taylor & Francis,UC Berkeley Press,Yale University Press]
+uri=?url
+call_number=?callnumber(loc)
+itemtype=[book,chapter,article]
+course_code=[LIBR,ARST,ENGL,MATH,CRWT,SPAN,MUSI,HIST]
+coursenum=?fixedint(3)
+section=?int(1,3)
+coursetitle=?coursetitle
+physicalformat=[book,ebook]
+status=[eBook Available Online,Available in Library Reserves,Available in Library Stacks]

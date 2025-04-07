@@ -70,6 +70,32 @@ def make_plural(word):
                 result = word+'s'
     return result    
 
+def make_ordinal(num):
+    result = ''
+    if 11 <= (num%100) <=13:
+        suffix = 'th'
+    else:
+        suffix = ['th','st','nd','rd','th'][min(num % 10, 4)]
+
+    result = str(num)+suffix
+    return result
+## ===================================================================================
+##    GLOBAL WORD LISTS
+##           Word lists for generating random book and course titles
+## ===================================================================================
+
+
+type_record = ['history','story','tale','study','analysis','review','record','cautionary tale','deep dive','poem','novel']
+type_collection = ['anthology','compendium','overview','survey']
+type_course = ['intro to','advanced','intermediate','practical','applied']
+type_subject = ['underwater basketweaving','python','java','accounting','business management','nuclear physics','cold fusion','archaelogy','psionics','behavioral science','web design','geology','woodworking','poetry','fiction','cold war studies','badminton','swordfighting','cement mixing']
+type_event = ['wedding','meeting','murder','burial','arrival','trial','awakening','death','rebirth','birth']
+type_period = ['year','decade','month','day','century']
+type_place = ['forest','library','archive','bookshop','well','woods','bog','lighthouse','city','hamlet','swamp','graveyard','yard','neighborhood','kitchen','doghouse','classroom','university','road','garage','church','temple','closet','park','bay']
+type_profession = ['farmer','sailor','worker','professor','educator','instructor','translator','writer','artist','hunter','politician','athlete','student']
+type_field = ['architecture','art','visual art','art history','biology','clinical psychology','cold war studies','culinary arts','computer science','data science','economics','frech','german','greek','climate studies','humanities','english literature','creative writing','dentistry','musicology','asian studies','history']
+
+
 ## ===================================================================================
 ##    VOCAB: Container object for managing word lists from an external config file. 
 ##           Should contain NOUNS, ADJECTIVES, ACTORS, PLACES, and GROUP terms
@@ -522,13 +548,6 @@ def fake_phone_number():
 
 def fake_book_title():
     result=''
-    type_record = ['history','story','tale','study','analysis','review','record','cautionary tale','deep dive','poem','novel']
-    type_collection = ['anthology','compendium','overview','survey']
-    type_event = ['wedding','meeting','murder','burial','arrival','trial','awakening','death','rebirth','birth']
-    type_period = ['year','decade','month','day','century']
-    type_place = ['forest','library','archive','bookshop','well','woods','bog','lighthouse','city','hamlet','swamp','graveyard','yard','neighborhood','kitchen','doghouse','classroom','university','road','garage','church','temple','closet','park','bay']
-    type_profession = ['farmer','sailor','worker','professor','educator','instructor','translator','writer','artist','hunter','politician','athlete','student']
-    type_field = ['architecture','art','visual art','art history','biology','clinical psychology','cold war studies','culinary arts','computer science','data science','economics','frech','german','greek','climate studies','humanities','english literature','creative writing','dentistry','musicology','asian studies','history']
     nouns = nameGen.vocab.nouns
     adjectives = nameGen.vocab.adjectives
     index = rolld(20)
@@ -598,6 +617,33 @@ def fake_call_number(kind='loc'):
             result = fake_call_number('loc')
     return result
 
+def fake_course_title():
+    result = ''
+    index = rolld(13)
+    nouns = nameGen.vocab.nouns
+    adjectives = nameGen.vocab.adjectives
+    match index:
+        case 1: 
+            result = choose(type_course)+' '+choose(type_field)
+        case 2:
+            result = choose(type_course)+' '+choose(type_subject)
+        case 3:
+            result = choose(type_course)+' '+make_plural(choose(nouns))
+        case 4:
+            result = 'the '+choose(type_profession)+' in the '+choose(type_place)
+        case 5:
+            result = 'the '+choose(adjectives)+' '+make_plural(choose(type_period))
+        case 6:
+            result = choose(type_field)+' for '+make_plural(choose(type_profession))
+        case 7:
+            result = add_article(choose(type_period))+' of '+make_plural(choose(type_event))
+        case 8:
+            result = make_ordinal(roll(14,21))+'-Century '+choose(type_field)
+        case _:
+            result = choose(type_field)+' '+str(rolld(5)*100+rolld(99))
+    result = result.title()
+    return result
+
 ## ===================================================================================
 ##     FAKEUSER: Used to create internally consistent names, email addresses, 
 ##     and account names.
@@ -631,10 +677,10 @@ class FakeUser:
 ## ===================================================================================
 
 class DatasetGenerator:
-    def __init__(self):
+    def __init__(self,config='cfg_gen_dataset.txt'):
         self.datatypes = {}
         self.user = FakeUser()
-        self.load()
+        self.load(config)
 
     # Load configuration file
     def load(self,filename='cfg_gen_dataset.txt'):   
@@ -718,6 +764,8 @@ class DatasetGenerator:
                     result = chr(roll(min,max))
                 else:
                     result = params[0]                
+            case 'coursetitle':
+                result = fake_course_title()
             case _:
                 result = val
         return result
@@ -763,7 +811,7 @@ class DatasetGenerator:
 ##    Main Program
 ## ===================================================================================
 
-dataset = DatasetGenerator()
+dataset = DatasetGenerator('cfg_gen_book_dataset.txt')
 results = dataset.generate(100)
 df = pd.DataFrame(results)
-df.to_csv('generated_dataset.csv')
+df.to_csv('generated_book_dataset.csv')
