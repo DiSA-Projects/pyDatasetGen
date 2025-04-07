@@ -1,0 +1,17 @@
+platform=[twitter,instagram,facebook,youtube,telegram]
+hashtags=[#edmonton,#canada,#chickenwar,#badmonkey,#15minrice,#oilers,#bigoil,#sanctuary,#immigration,#fireisland,#tradewar,#badidea,#sadnews]
+#hashtags=?hashtag
+message=?comment
+email=?email
+url=?url
+name=?fullname
+date=?date(2023-01-01,2024-12-31)
+comment_count=?count(0,50,2500)
+like_count=?count(0,200,14000)
+address1=?streetaddress
+city=[Vancouver,Richmond,Toronto,Montreal,Halifax,Winnepeg,Surrey,Regina,Saskatoon,St. Johns]
+address3=[BC,AB,SK,MB,ON,QC,NB,NS,NL,PE,YT,NT,NU]
+phone=?phonenum
+book_title=?booktitle
+call_number=?callnumber(loc)
+userid=?char(A-Z)+?int(1000,2000)+-+?fixedint(7)
