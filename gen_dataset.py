@@ -585,7 +585,7 @@ def fake_isxn(kind='isbn'):
     result = ''
     match kind:
         case 'isbn':
-            result = '97'+random.randint(8,9)+'-'+get_fixed_length_int(10)
+            result = '97'+str(random.randint(8,9))+'-'+get_fixed_length_int(10)
         case 'issn':
             result = get_fixed_length_int(4)+'-'+get_fixed_length_int(4)
         case _:
@@ -748,7 +748,7 @@ class DatasetGenerator:
                 result = fake_phone_number()
             case 'booktitle':
                 result = fake_book_title()
-            case ['issn','isbn','isxn']:
+            case 'issn'|'isbn'|'isxn':
                 result = fake_isxn(val_type)
             case 'callnumber':                
                 result = fake_call_number(params[0])    
